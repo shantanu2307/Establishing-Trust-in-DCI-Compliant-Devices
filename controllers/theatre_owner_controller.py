@@ -1,3 +1,4 @@
+import bcrypt
 from flask import request, jsonify, session, Blueprint
 from models.main import *
 
@@ -10,6 +11,11 @@ theatre_owner = TheatreOwner()
 @theatre_owner_handler.route("/owner/signup", methods=["POST"])
 def signup():
     data = request.get_json()
+    password = data.get("password")
+    password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+    data["password"] = password
+    if theatre_owner.find({"email": data.get("email")}):
+        return jsonify({"message": "Email already exists"}), 400
     return jsonify(theatre_owner.create(data)), 200
 
 
@@ -20,7 +26,7 @@ def login():
     password = data.get("password")
     if email and password:
         owner = theatre_owner.find({"email": email})
-        if owner and owner[0].get("password") == password:
+        if owner and bcrypt.checkpw(password.encode("utf-8"), owner[0].get("password")):
             return jsonify({"message": "Successful Login"}), 200
         elif owner:
             return jsonify({"message": "Wrong Password"}), 401
