@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_cors import CORS
-from models.main import *
 from controllers.theatre_owner_controller import theatre_owner_handler
 import logging
 
