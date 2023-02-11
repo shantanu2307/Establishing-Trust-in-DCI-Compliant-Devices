@@ -12,7 +12,7 @@ class Validator(object):
         if desired_type == "float":
             return type(element) == float
         if type(desired_type) == list:
-            return (element in desired_type)
+            return element in desired_type
         raise ValueError("Invalid value for desired type")
 
     def validateTypes(self, element, fields):

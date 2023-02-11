@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.formatting.provider": "black",
+  "editor.tabSize": 4,
+  "python.formatting.blackArgs": ["--line-length=120"],
+  "python.linting.enabled": false
+}

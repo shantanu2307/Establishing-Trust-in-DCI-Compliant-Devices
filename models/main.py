@@ -6,7 +6,7 @@ from models.theatre_owner import TheatreOwner
 from models.movie import Movie
 from models.distribution_house import DistributionHouse
 
-#Export all models
+# Export all models
 __all__ = [
     "Certificate",
     "Device",
@@ -14,5 +14,5 @@ __all__ = [
     "Theatre",
     "TheatreOwner",
     "Movie",
-    "DistributionHouse"
+    "DistributionHouse",
 ]

@@ -7,23 +7,30 @@ from config import config
 
 class Database(object):
     def __init__(self):
-        self.client = MongoClient(config['db']['url'])  # configure db url
-        self.db = self.client[config['db']['name']]  # configure db name
+        self.client = MongoClient(config["db"]["url"])  # configure db url
+        self.db = self.client[config["db"]["name"]]  # configure db name
 
     def insert(self, element, collection_name):
         element["created"] = datetime.now()
         element["updated"] = datetime.now()
-        inserted = self.db[collection_name].insert_one(
-            element)  # insert data to db
+        inserted = self.db[collection_name].insert_one(element)  # insert data to db
         return str(inserted.inserted_id)
 
-    def find(self, criteria, collection_name, projection=None, sort=None, limit=0, cursor=False):  # find all from db
-
+    def find(
+        self,
+        criteria,
+        collection_name,
+        projection=None,
+        sort=None,
+        limit=0,
+        cursor=False,
+    ):  # find all from db
         if "_id" in criteria:
             criteria["_id"] = ObjectId(criteria["_id"])
 
         found = self.db[collection_name].find(
-            filter=criteria, projection=projection, limit=limit, sort=sort)
+            filter=criteria, projection=projection, limit=limit, sort=sort
+        )
 
         if cursor:
             return found

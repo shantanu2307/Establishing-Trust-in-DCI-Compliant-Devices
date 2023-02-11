@@ -1,8 +1,8 @@
 {
-  "db": {
-    "url": "mongodb://localhost:27017/",
-    "name": "btp2",
-    "user": "",
-    "password": ""
-  }
+    "db": {
+        "url": "mongodb://localhost:27017/",
+        "name": "btp2",
+        "user": "",
+        "password": ""
+    }
 }

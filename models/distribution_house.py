@@ -1,6 +1,7 @@
 from factory.validation import Validator
 from factory.database import Database
 
+
 class DistributionHouse(object):
     def __init__(self):
         self.validator = Validator()
@@ -12,7 +13,7 @@ class DistributionHouse(object):
             "email": "string",
             "password": "string",
             "created": "datetime",
-            "updated": "datetime"
+            "updated": "datetime",
         }
 
         self.create_required_fields = ["name", "location", "email", "password"]
@@ -23,7 +24,11 @@ class DistributionHouse(object):
 
     def create(self, distribution_house):
         self.validator.validate(
-            distribution_house, self.fields, self.create_required_fields, self.create_optional_fields)
+            distribution_house,
+            self.fields,
+            self.create_required_fields,
+            self.create_optional_fields,
+        )
         res = self.db.insert(distribution_house, self.collection_name)
         return "Inserted Id " + res
 
@@ -35,8 +40,14 @@ class DistributionHouse(object):
 
     def update(self, distribution_house_id, distribution_house):
         self.validator.validate(
-            distribution_house, self.fields, self.update_required_fields, self.update_optional_fields)
-        return self.db.update(distribution_house_id, distribution_house, self.collection_name)
+            distribution_house,
+            self.fields,
+            self.update_required_fields,
+            self.update_optional_fields,
+        )
+        return self.db.update(
+            distribution_house_id, distribution_house, self.collection_name
+        )
 
     def delete(self, distribution_house_id):
         return self.db.delete(distribution_house_id, self.collection_name)
