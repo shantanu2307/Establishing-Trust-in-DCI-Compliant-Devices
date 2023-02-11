@@ -1,6 +1,6 @@
 {
     "db": {
-        "url": "mongodb://localhost:27017/",
+        "url": "mongodb+srv://btp2sem8:shiv12@cluster0.vq7rdnj.mongodb.net/?retryWrites=true&w=majority",
         "name": "btp2",
         "user": "",
         "password": ""
