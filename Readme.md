@@ -27,3 +27,22 @@ pip freeze > requirements.txt
 ```
 deactivate
 ```
+
+### To install IPFS on MacOS
+
+```
+brew install ipfs
+ipfs init
+ipfs daemon
+```
+
+### To install Ganache on MacOS
+
+```
+Download the app from https://www.trufflesuite.com/ganache
+
+Deploy the contract on Ganache network
+
+Update the contract ID in block.py
+
+```
