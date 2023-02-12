@@ -44,5 +44,22 @@ Download the app from https://www.trufflesuite.com/ganache
 Deploy the contract on Ganache network
 
 Update the contract ID in block.py
+```
 
+### To install packages of Next.js
+
+- Install Node.js
+
+```
+brew install node
+```
+
+- Install Yarn
+
+```
+npm install -g yarn
+
+yarn install
+
+yarn dev
 ```
