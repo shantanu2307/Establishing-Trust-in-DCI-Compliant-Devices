@@ -40,8 +40,8 @@ def updateOwner(newowner, hash):
     return tx_receipt
 
 
-# print(setHash("0xacf5D3E4c77523C298936b5dDa96BCA390c26043", "0x1234567890"))
-# print(getOwner("0x1234567890"))
-# print(getHash("0xacf5D3E4c77523C298936b5dDa96BCA390c26043"))
-# print(updateHash("0x1234567890", "0x1234567891"))
-# print(updateOwner("0x5F7271Cf98C1A79aCa96F9EEb43bA44ad02424AB", "0x1234567891"))
+# print(setHash("0x5A0897afa22c76aeEf8E6b89dCeC96E863F64882", "0xsagar"))
+# print(getOwner("0xkanhaiya"))
+# print(getHash("0x5A0897afa22c76aeEf8E6b89dCeC96E863F64882"))
+# print(updateHash("0xshantanu", "0xkanhaiya"))
+# print(updateOwner("0xD5350527a2748D031088312e778745071E660DA1", "0xkanhaiya"))
