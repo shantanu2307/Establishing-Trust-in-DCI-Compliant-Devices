@@ -11,15 +11,16 @@ class DistributionHouse(object):
             "name": "string",
             "location": "string",
             "email": "string",
+            "account": "string",
             "password": "string",
             "created": "datetime",
             "updated": "datetime",
         }
 
-        self.create_required_fields = ["name", "location", "email", "password"]
+        self.create_required_fields = ["name", "location", "email", "password", "account"]
         self.create_optional_fields = []
 
-        self.update_required_fields = ["name", "location", "email", "password"]
+        self.update_required_fields = ["name", "location", "email", "password", "account"]
         self.update_optional_fields = []
 
     def create(self, distribution_house):
@@ -45,9 +46,7 @@ class DistributionHouse(object):
             self.update_required_fields,
             self.update_optional_fields,
         )
-        return self.db.update(
-            distribution_house_id, distribution_house, self.collection_name
-        )
+        return self.db.update(distribution_house_id, distribution_house, self.collection_name)
 
     def delete(self, distribution_house_id):
         return self.db.delete(distribution_house_id, self.collection_name)

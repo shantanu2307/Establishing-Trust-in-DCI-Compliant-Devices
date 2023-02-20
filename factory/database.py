@@ -28,9 +28,7 @@ class Database(object):
         if "_id" in criteria:
             criteria["_id"] = ObjectId(criteria["_id"])
 
-        found = self.db[collection_name].find(
-            filter=criteria, projection=projection, limit=limit, sort=sort
-        )
+        found = self.db[collection_name].find(filter=criteria, projection=projection, limit=limit, sort=sort)
 
         if cursor:
             return found
