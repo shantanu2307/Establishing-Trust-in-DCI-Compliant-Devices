@@ -1,11 +1,14 @@
 from flask import Flask
 from flask_cors import CORS
 from controllers.theatre_owner_controller import theatre_owner_handler
+from controllers.distribution_house_controller import distribution_house_handler
 import logging
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 app.register_blueprint(theatre_owner_handler)
-CORS(app)
+app.register_blueprint(distribution_house_handler)
+
 
 logging.basicConfig(
     level=logging.DEBUG,

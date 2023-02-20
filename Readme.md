@@ -40,9 +40,7 @@ ipfs daemon
 
 ```
 Download the app from https://www.trufflesuite.com/ganache
-
 Deploy the contract on Ganache network
-
 Update the contract ID in block.py
 ```
 
@@ -58,8 +56,6 @@ brew install node
 
 ```
 npm install -g yarn
-
 yarn install
-
 yarn dev
 ```

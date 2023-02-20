@@ -6,6 +6,7 @@ contract ipfsContract {
     mapping(string => address) public hashToOwner;
 
     function setHash(address owner, string memory hash) public {
+        require(hashToOwner[hash] == address(0), "Hash already exists");
         ownerToHash[owner].push(hash);
         hashToOwner[hash] = owner;
     }
@@ -22,8 +23,11 @@ contract ipfsContract {
         address owner = hashToOwner[_oldhash];
         delete hashToOwner[_oldhash];
         hashToOwner[_newhash] = owner;
-        for (uint i = 0; i < ownerToHash[owner].length; i++) {
-            if (keccak256(abi.encodePacked(ownerToHash[owner][i])) == keccak256(abi.encodePacked(_oldhash))) {
+        for (uint256 i = 0; i < ownerToHash[owner].length; i++) {
+            if (
+                keccak256(abi.encodePacked(ownerToHash[owner][i])) ==
+                keccak256(abi.encodePacked(_oldhash))
+            ) {
                 ownerToHash[owner][i] = _newhash;
             }
         }
@@ -34,10 +38,25 @@ contract ipfsContract {
         delete hashToOwner[hash];
         hashToOwner[hash] = _newowner;
         ownerToHash[_newowner].push(hash);
-        for (uint i = 0; i < ownerToHash[owner].length; i++) {
-            if (keccak256(abi.encodePacked(ownerToHash[owner][i])) == keccak256(abi.encodePacked(hash))) {
+        for (uint256 i = 0; i < ownerToHash[owner].length; i++) {
+            if (
+                keccak256(abi.encodePacked(ownerToHash[owner][i])) ==
+                keccak256(abi.encodePacked(hash))
+            ) {
                 delete ownerToHash[owner][i];
             }
+        }
+    }
+
+    function validateOwner(address owner, string memory hash)
+        public
+        view
+        returns (bool)
+    {
+        if (hashToOwner[hash] == owner) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
