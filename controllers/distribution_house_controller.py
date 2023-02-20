@@ -1,11 +1,10 @@
 from flask import request, jsonify, Blueprint, session
-from flask_cors import cross_origin
-from block import contract, getOwner, getHash, setHash, updateHash, updateOwner, validateOwner
+from block import getHash, setHash, validateOwner
 from models.main import *
+import bson
 import bcrypt
 import ipfshttpclient
 import os
-
 
 ipfs = ipfshttpclient.connect()
 distribution_house_handler = Blueprint("distribution_house_handler", __name__)
@@ -13,6 +12,8 @@ distribution_house_handler = Blueprint("distribution_house_handler", __name__)
 
 certificate = Certificate()
 distribution_house = DistributionHouse()
+
+session = {}
 
 
 @distribution_house_handler.route("/distribution_house/signup", methods=["POST"])
@@ -35,7 +36,8 @@ def login():
     if email and password:
         owner = distribution_house.find({"email": email})
         if owner and bcrypt.checkpw(password.encode("utf-8"), owner[0].get("password")):
-            session["logged_in_owner_id"] = owner[0].get("_id")
+            owner_id = bson.ObjectId(owner[0].get("_id"))
+            session["logged_in_owner_id"] = owner_id
             return jsonify({"message": "Successful Login"}), 200
         elif owner:
             return jsonify({"message": "Wrong Password"}), 401
@@ -80,9 +82,10 @@ def add_certificate():
 def get_certificate():
     if not "logged_in_owner_id" in session:
         return jsonify({"error": "Not logged in"}), 401
-
+    print(session["logged_in_owner_id"], "ID")
     d_house = distribution_house.find_by_id(session["logged_in_owner_id"])
     account = d_house.get("account")
+    account = str(account)
     hashes = getHash(account)
     certificates = []
     for hash in hashes:

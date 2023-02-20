@@ -1,5 +1,18 @@
-import React from 'react'
+import { createContext, useState } from "react";
 
-const AppContext = React.createContext()
+export const AppContext = createContext({});
 
-export default AppContext
+const AppContextProvider = ({ children }) => {
+    const [user, setUser] = useState({
+        loggedIn: false,
+        role: "guest",
+    });
+
+    return (
+        <AppContext.Provider value={{ user, setUser }}>
+            {children}
+        </AppContext.Provider>
+    );
+};
+
+export default AppContextProvider;

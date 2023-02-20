@@ -1,16 +1,11 @@
 import '../styles/globals.css'
-import AppContext from '../contexts/AppContext'
+import AppContextProvider from '../contexts/AppContext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AppContext.Provider value={{
-      user: {
-        loggedIn: false,
-        role: 'guest'
-      }
-    }}>
+    <AppContextProvider>
       <Component {...pageProps} />
-    </AppContext.Provider>
+    </AppContextProvider>
   );
 }
 

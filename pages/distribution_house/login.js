@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import LoginForm from '../../components/LoginForm';
+import { AppContext } from '../../contexts/AppContext';
+import { useContext } from 'react';
 export default function login() {
     const router = useRouter();
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
+    const { setUser } = useContext(AppContext);
     const fields = [
         {
             name: 'email',
@@ -21,9 +24,12 @@ export default function login() {
 
     async function handleSubmit(fieldValues) {
         try {
-            await axios.post('http://127.0.0.1:5000/distribution_house/login', fieldValues)
-            router.push('/distribution_house/home')
-            console.log('success');
+            await axios.post('http://127.0.0.1:5000/distribution_house/login', fieldValues);
+            setUser({
+                loggedIn: true,
+                role: 'distribution_house',
+            });
+            router.push('/distribution_house/dashboard')
         } catch (error) {
             setError(error.response.data.message)
             console.log(error);
