@@ -12,7 +12,7 @@ class DeviceManufacturer(object):
             "location": "string",
             "email": "string",
             "password": "string",
-            "devices": ["string"],
+            "account": "string",
             "created": "datetime",
             "updated": "datetime",
         }
@@ -22,7 +22,7 @@ class DeviceManufacturer(object):
             "location",
             "email",
             "password",
-            "devices",
+            "account",
         ]
         self.create_optional_fields = []
 
@@ -31,7 +31,7 @@ class DeviceManufacturer(object):
             "location",
             "email",
             "password",
-            "devices",
+            "account",
         ]
         self.update_optional_fields = []
 
@@ -58,9 +58,7 @@ class DeviceManufacturer(object):
             self.update_required_fields,
             self.update_optional_fields,
         )
-        return self.db.update(
-            device_manufacturer_id, device_manufacturer, self.collection_name
-        )
+        return self.db.update(device_manufacturer_id, device_manufacturer, self.collection_name)
 
     def delete(self, device_manufacturer_id):
         return self.db.delete(device_manufacturer_id, self.collection_name)

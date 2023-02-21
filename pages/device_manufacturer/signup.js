@@ -36,8 +36,8 @@ export default function signup() {
 
     async function handleSubmit(fieldValues) {
         try {
-            await axios.post('http://127.0.0.1:5000/distribution_house/signup', fieldValues)
-            router.push('/distribution_house/login')
+            await axios.post('http://127.0.0.1:5000/device_manufacturer/signup', fieldValues)
+            router.push('/device_manufacturer/login')
         } catch (error) {
             setError(error.response.data.message)
             console.log(error);

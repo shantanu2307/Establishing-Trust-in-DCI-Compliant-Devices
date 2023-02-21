@@ -9,7 +9,7 @@ export default function dashboard() {
     const { user } = useContext(AppContext);
     const [certificates, setCertificates] = useState([]);
     async function getCertificates() {
-        const url = "http://127.0.0.1:5000/distribution_house/get_certificates"
+        const url = "http://127.0.0.1:5000/device_manufacturer/get_certificates"
         const headers = {
             'Content-Type': 'application/json'
         }
@@ -20,8 +20,8 @@ export default function dashboard() {
     }
 
     useEffect(() => {
-        if (!user.loggedIn || user.role !== 'distribution_house') {
-            router.push('/distribution_house/login')
+        if (!user.loggedIn || user.role !== 'device_manufacturer') {
+            router.push('/device_manufacturer/login')
             return;
         }
         getCertificates()

@@ -24,12 +24,12 @@ export default function login() {
 
     async function handleSubmit(fieldValues) {
         try {
-            await axios.post('http://127.0.0.1:5000/distribution_house/login', fieldValues);
+            await axios.post('http://127.0.0.1:5000/device_manufacturer/login', fieldValues);
             setUser({
                 loggedIn: true,
-                role: 'distribution_house',
+                role: 'device_manufacturer',
             });
-            router.push('/distribution_house/dashboard')
+            router.push('/device_manufacturer/dashboard')
         } catch (error) {
             setError(error.response.data.message)
             console.log(error);
