@@ -24,6 +24,7 @@ export default function login() {
 
     async function handleSubmit(fieldValues) {
         try {
+            console.log(fieldValues)
             await axios.post('http://127.0.0.1:5000/device_manufacturer/login', fieldValues);
             setUser({
                 loggedIn: true,

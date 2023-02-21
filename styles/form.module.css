@@ -1,0 +1,18 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.form {
+  max-width: 330px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.form .form_custom_btn {
+  margin-top: 50px;
+  border: 1px solid black;
+}

@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
+import styles from '../styles/form.module.css'
+import CustomInput from './CustomInput'
+import Button from './Button'
 
 export default function LoginForm({ fields, handleSubmit }) {
     // Set states for each field.name in fields and return it to handleSubmit
 
     const [fieldValues, setFieldValues] = useState({})
 
-    function handleChange(e) {
+    function handleChange(e, name) {
         setFieldValues({
             ...fieldValues,
-            [e.target.name]: e.target.value,
+            [name]: e.target.value,
         })
     }
 
@@ -18,14 +21,20 @@ export default function LoginForm({ fields, handleSubmit }) {
     }
 
     return (
-        <form>
+        <form className={styles.form}>
             {fields.map((field, index) => (
-                <div key={index}>
-                    <label htmlFor={field.name}>{field.label}</label>
-                    <input type={field.type} name={field.name} onChange={handleChange} />
-                </div>
+                <CustomInput
+                    key={index}
+                    name={field.name}
+                    labelText={field.label}
+                    type={field.type}
+                    handleChange={(e) => handleChange(e, field.name)}
+                    formControlProps={{
+                        fullWidth: true,
+                    }}
+                />
             ))}
-            <button onClick={handleSubmitButton}>Submit</button>
+            <Button type="button" color="primary" className={styles.form_custom_btn} onClick={handleSubmitButton}>Submit</Button>
         </form>
     )
 }
