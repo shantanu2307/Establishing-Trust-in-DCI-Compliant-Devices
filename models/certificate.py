@@ -8,28 +8,21 @@ class Certificate(object):
         self.db = Database()
         self.collection_name = "certificates"
         self.fields = {
-            "theatre_id": "string",
-            "device_id": "string",
-            "server_id": "string",
+            "created_by": "string",
             "hashed_key": "string",
             "created": "datetime",
             "updated": "datetime",
         }
 
         self.create_required_fields = [
-            "theatre_id",
-            "device_id",
-            "server_id",
+            "created_by",
             "hashed_key",
         ]
 
         self.create_optional_fields = []
 
         self.update_required_fields = [
-            "theatre_id",
-            "device_id",
-            "server_id",
-            "hashed_key",
+            "created_by" "hashed_key",
         ]
 
         self.update_optional_fields = []

@@ -10,7 +10,7 @@ ipfs = ipfshttpclient.connect()
 device_manufacturer_handler = Blueprint("device_manufacturer_handler", __name__)
 
 
-certificate = Certificate()
+certificate_entity = Certificate()
 device_manufacturer = DeviceManufacturer()
 
 session = {}
@@ -63,17 +63,23 @@ def add_certificate():
     filename = ""
     certificate = request.files.get("file")
     d_man = device_manufacturer.find_by_id(session["logged_in_owner_id"])
+    name = d_man.get("name")
     account = d_man.get("account")
     if certificate:
         filename = certificate.filename
         certificate.save(filename)
         res = ipfs.add(filename)
-        # If certificate is already present
         if validateOwner(account, res["Hash"]):
             return jsonify({"message": "Certificate already present"}), 400
         hash = res["Hash"]
         setHash(account, hash)
         os.remove(filename)
+        certificate_entity.create(
+            {
+                "created_by": name,
+                "hashed_key": hash,
+            }
+        )
         return jsonify({"message": "Certificate added"}), 200
     return jsonify({"message": "Certificate not added"}), 400
 
@@ -91,5 +97,4 @@ def get_certificate():
     for hash in hashes:
         data = ipfs.cat(hash)
         certificates.append(data.decode("utf-8"))
-    print(certificates)
     return jsonify({"certificates": certificates}), 200

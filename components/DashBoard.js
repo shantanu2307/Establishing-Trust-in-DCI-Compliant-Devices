@@ -182,7 +182,7 @@ export default function Dashboard({ title, certificates, handleLogOut, children 
                     </IconButton>
                 </div>
                 <Divider />
-                <List>{children}</List>
+                <List>{children && children[0] || children}</List>
                 <Divider />
             </Drawer>
             <main className={classes.content}>
@@ -191,7 +191,7 @@ export default function Dashboard({ title, certificates, handleLogOut, children 
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                {/* <Orders /> */}
+                                {children && children[1]}
                             </Paper>
                         </Grid>
                     </Grid>
