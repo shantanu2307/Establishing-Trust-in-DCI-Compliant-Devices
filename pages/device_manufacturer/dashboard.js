@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { AppContext } from '../../contexts/AppContext';
 import Dashboard from '../../components/DashBoard';
-import { mainListItems } from '../../components/DeviceManufacturerList';
+import DeviceManufacturerList from '../../components/DeviceManufacturerList';
+
 
 export default function dashboard() {
     const router = useRouter();
@@ -47,7 +48,7 @@ export default function dashboard() {
         <>
             <div>
                 <Dashboard certificates={certificates} handleLogOut={handleLogOut} >
-                    {mainListItems}
+                    <DeviceManufacturerList />
                 </Dashboard>
             </div>
         </>
