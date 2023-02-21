@@ -3,10 +3,12 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { AppContext } from '../../contexts/AppContext';
+import Dashboard from '../../components/DashBoard';
+import { mainListItems } from '../../components/DeviceManufacturerList';
 
 export default function dashboard() {
     const router = useRouter();
-    const { user } = useContext(AppContext);
+    const { user, setUser } = useContext(AppContext);
     const [certificates, setCertificates] = useState([]);
     async function getCertificates() {
         const url = "http://127.0.0.1:5000/device_manufacturer/get_certificates"
@@ -27,13 +29,26 @@ export default function dashboard() {
         getCertificates()
     }, [])
 
+    async function handleLogOut() {
+        try {
+            await axios.post('http://127.0.0.1:5000/device_manufacturer/logout');
+            setUser({
+                loggedIn: false,
+                role: 'guest',
+            });
+            router.push('/device_manufacturer/login');
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
     return (
         <>
             <div>
-                <h1>Dashboard</h1>
-                {certificates.map((certificate, index) => (
-                    <div key={index}> {certificate} </div>
-                ))}
+                <Dashboard certificates={certificates} handleLogOut={handleLogOut} >
+                    {mainListItems}
+                </Dashboard>
             </div>
         </>
     )
