@@ -122,7 +122,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function Dashboard({ certificates, handleLogOut, children }) {
+export default function Dashboard({ title, certificates, handleLogOut, children }) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
 
@@ -160,7 +160,7 @@ export default function Dashboard({ certificates, handleLogOut, children }) {
                         noWrap
                         className={classes.title}
                     >
-                        Dashboard
+                        {title}
                     </Typography>
                     <IconButton color="inherit" onClick={handleLogOut}>
                         <Badge color="secondary">

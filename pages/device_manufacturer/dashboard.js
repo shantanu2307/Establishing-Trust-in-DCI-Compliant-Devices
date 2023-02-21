@@ -47,7 +47,7 @@ export default function dashboard() {
     return (
         <>
             <div>
-                <Dashboard certificates={certificates} handleLogOut={handleLogOut} >
+                <Dashboard title={"Dashboard"} certificates={certificates} handleLogOut={handleLogOut} >
                     <DeviceManufacturerList />
                 </Dashboard>
             </div>
