@@ -1,9 +1,21 @@
 import { Grid, Paper } from '@material-ui/core';
-import styles from '../styles/cardlist.module.css';
+import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import Card from './Card';
 
+const useStyles = makeStyles(() => ({
+  paper: {
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+  },
+  grid: {
+    marginTop: '20px',
+  },
+}));
+
 export default function CardList({ certificates }) {
+  const styles = useStyles();
   return (
     <>
       <Grid container spacing={3} className={styles.grid}>

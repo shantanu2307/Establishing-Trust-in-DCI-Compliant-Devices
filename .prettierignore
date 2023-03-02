@@ -14,3 +14,4 @@ models
 block.py
 config.py
 wsgi.py
+styles
