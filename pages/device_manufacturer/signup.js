@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SignupForm from '../../components/SignupForm';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import instance from '../../axios.config';
 
 export default function Signup() {
   const router = useRouter();
@@ -36,10 +37,7 @@ export default function Signup() {
 
   async function handleSubmit(fieldValues) {
     try {
-      await axios.post(
-        'http://127.0.0.1:5000/device_manufacturer/signup',
-        fieldValues
-      );
+      await instance.post('/device_manufacturer/signup', fieldValues);
       router.push('/device_manufacturer/login');
     } catch (error) {
       setError(error.response.data.message);

@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import LoginForm from '../../components/LoginForm';
 import { AppContext } from '../../contexts/AppContext';
 import { useContext } from 'react';
+import instance from '../../axios.config';
+
 export default function Login() {
   const router = useRouter();
   const [error, setError] = useState(null);
@@ -23,10 +25,7 @@ export default function Login() {
 
   async function handleSubmit(fieldValues) {
     try {
-      await axios.post(
-        'http://127.0.0.1:5000/device_manufacturer/login',
-        fieldValues
-      );
+      await instance.post('/device_manufacturer/login', fieldValues);
       setUser({
         loggedIn: true,
         role: 'device_manufacturer',

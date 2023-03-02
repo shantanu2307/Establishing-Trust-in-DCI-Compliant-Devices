@@ -6,6 +6,7 @@ import { AppContext } from '../../contexts/AppContext';
 import DashBoard from '../../components/DashBoard';
 import DeviceManufacturerList from '../../components/DeviceManufacturerList';
 import CardList from '../../components/CardList';
+import instance from '../../axios.config';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -13,11 +14,10 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [certificates, setCertificates] = useState([]);
   async function getCertificates() {
-    const url = 'http://127.0.0.1:5000/device_manufacturer/get_certificates';
     const headers = {
       'Content-Type': 'application/json',
     };
-    const res = await axios.get(url, {
+    const res = await instance.get('/device_manufacturer/get_certificates', {
       headers: headers,
       withCredentials: true,
     });
@@ -38,7 +38,7 @@ export default function Dashboard() {
 
   async function handleLogOut() {
     try {
-      await axios.post('http://127.0.0.1:5000/device_manufacturer/logout');
+      await instance.post('/device_manufacturer/logout');
       setUser({
         loggedIn: false,
         role: 'guest',

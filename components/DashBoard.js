@@ -120,11 +120,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard({
-  title,
-  handleLogOut,
-  children,
-}) {
+export default function Dashboard({ title, handleLogOut, children }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
