@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { AppContext } from '../../contexts/AppContext';
@@ -7,6 +6,7 @@ import DashBoard from '../../components/DashBoard';
 import DeviceManufacturerList from '../../components/DeviceManufacturerList';
 import CardList from '../../components/CardList';
 import instance from '../../axios.config';
+import { CircularProgress } from '@material-ui/core';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -23,8 +23,6 @@ export default function Dashboard() {
     });
     if (res.status === 200) {
       setCertificates(res.data.certificates);
-      setLoading(false);
-      console.log(res.data.certificates);
     }
   }
 
@@ -34,6 +32,7 @@ export default function Dashboard() {
       return;
     }
     getCertificates();
+    setLoading(false);
   }, []);
 
   async function handleLogOut() {
@@ -58,7 +57,10 @@ export default function Dashboard() {
           handleLogOut={handleLogOut}
         >
           <DeviceManufacturerList />
-          <CardList certificates={certificates} />
+          <div>
+            {!loading && (<CardList certificates={certificates} />)}
+            {loading && (<CircularProgress />)}
+          </div>
         </DashBoard>
       </div>
     </>

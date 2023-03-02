@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import SignupForm from '../../components/SignupForm';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import instance from '../../axios.config';
 
