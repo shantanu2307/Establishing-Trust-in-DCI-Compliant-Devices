@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
 import AppContextProvider from '../contexts/AppContext';
 function MyApp({ Component, pageProps }) {
   return (
@@ -8,4 +8,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp
+export default MyApp;
