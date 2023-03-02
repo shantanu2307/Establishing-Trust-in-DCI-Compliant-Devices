@@ -95,6 +95,7 @@ def get_certificate():
     hashes = getHash(account)
     certificates = []
     for hash in hashes:
-        data = ipfs.cat(hash)
-        certificates.append(data.decode("utf-8"))
+        certificate = certificate_entity.find({"hashed_key": hash})
+        if certificate and len(certificate) > 0:
+            certificates.append(certificate[0])
     return jsonify({"certificates": certificates}), 200

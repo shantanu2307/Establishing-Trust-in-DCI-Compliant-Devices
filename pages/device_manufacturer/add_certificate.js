@@ -12,6 +12,7 @@ export default function addCertificate() {
     const router = useRouter();
     const { user, setUser } = useContext(AppContext);
     const [success, setSuccess] = useState(2);
+
     useEffect(() => {
         if (!user.loggedIn || user.role !== 'device_manufacturer') {
             router.push('/device_manufacturer/login')
@@ -29,7 +30,6 @@ export default function addCertificate() {
             router.push('/device_manufacturer/login');
         }
         catch (e) {
-
             console.log(e);
         }
     }

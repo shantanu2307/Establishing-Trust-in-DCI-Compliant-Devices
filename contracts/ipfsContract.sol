@@ -59,4 +59,11 @@ contract ipfsContract {
             return false;
         }
     }
+
+    function resetChain(address account) public {
+        for (uint256 i = 0; i < ownerToHash[account].length; i++) {
+            delete hashToOwner[ownerToHash[account][i]];
+            delete ownerToHash[account][i];
+        }
+    }
 }

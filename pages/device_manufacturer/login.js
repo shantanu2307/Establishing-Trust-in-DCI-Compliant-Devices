@@ -6,7 +6,7 @@ import { AppContext } from '../../contexts/AppContext';
 import { useContext } from 'react';
 export default function login() {
     const router = useRouter();
-    const [error, setError] = useState('');
+    const [error, setError] = useState(null);
     const { setUser } = useContext(AppContext);
     const fields = [
         {
@@ -38,8 +38,7 @@ export default function login() {
 
     return (
         <>
-            {error && <p>{error}</p>}
-            <LoginForm fields={fields} handleSubmit={handleSubmit} />
+            <LoginForm error={error} fields={fields} handleSubmit={handleSubmit} />
         </>
     )
 }

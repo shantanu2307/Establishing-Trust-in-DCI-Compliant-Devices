@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import SignupForm from '../../components/SignupForm'
 import axios from 'axios';
 import { useRouter } from 'next/router';
+
 export default function signup() {
     const router = useRouter();
-    const [error, setError] = useState('')
+    const [error, setError] = useState(null)
     const fields = [
         {
             name: 'name',
@@ -46,8 +47,7 @@ export default function signup() {
 
     return (
         <>
-            {error && <p>{error}</p>}
-            <SignupForm fields={fields} handleSubmit={handleSubmit} />
+            <SignupForm error={error} fields={fields} handleSubmit={handleSubmit} />
         </>
     )
 }

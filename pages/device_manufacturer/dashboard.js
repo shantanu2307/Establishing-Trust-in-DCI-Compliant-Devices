@@ -5,11 +5,14 @@ import { useContext } from 'react';
 import { AppContext } from '../../contexts/AppContext';
 import Dashboard from '../../components/DashBoard';
 import DeviceManufacturerList from '../../components/DeviceManufacturerList';
+import CardList from '../../components/CardList';
+
 
 
 export default function dashboard() {
     const router = useRouter();
     const { user, setUser } = useContext(AppContext);
+    const [loading, setLoading] = useState(true);
     const [certificates, setCertificates] = useState([]);
     async function getCertificates() {
         const url = "http://127.0.0.1:5000/device_manufacturer/get_certificates"
@@ -19,6 +22,8 @@ export default function dashboard() {
         const res = await axios.get(url, { headers: headers, withCredentials: true });
         if (res.status === 200) {
             setCertificates(res.data.certificates)
+            setLoading(false);
+            console.log(res.data.certificates);
         }
     }
 
@@ -49,6 +54,7 @@ export default function dashboard() {
             <div>
                 <Dashboard title={"Dashboard"} certificates={certificates} handleLogOut={handleLogOut} >
                     <DeviceManufacturerList />
+                    <CardList certificates={certificates} />
                 </Dashboard>
             </div>
         </>

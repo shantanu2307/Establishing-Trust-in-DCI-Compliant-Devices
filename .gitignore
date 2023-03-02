@@ -4,3 +4,4 @@ __pycache__
 node_modules
 flask_session
 .next
+yarn-error.log

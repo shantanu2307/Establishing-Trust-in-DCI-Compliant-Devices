@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import styles from '../styles/form.module.css'
 import CustomInput from './CustomInput'
 import Button from './Button'
+import { Alert } from '@mui/material'
 
-export default function SignupForm({ fields, handleSubmit }) {
+
+export default function SignupForm({ error, fields, handleSubmit }) {
     // Set states for each field.name in fields and return it to handleSubmit
 
     const [fieldValues, setFieldValues] = useState({})
@@ -22,6 +24,7 @@ export default function SignupForm({ fields, handleSubmit }) {
 
     return (
         <form className={styles.form}>
+            {error && <Alert severity="error">{error}</Alert>}
             {fields.map((field, index) => (
                 <CustomInput
                     key={index}
