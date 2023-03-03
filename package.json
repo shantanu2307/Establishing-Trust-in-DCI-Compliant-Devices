@@ -6,8 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "server": "python wsgi.py",
     "lint": "next lint",
-    "prettier": "prettier --write ."
+    "black": "black */*.py",
+    "prettier": "prettier --write .",
+    "format": "yarn prettier && yarn black",
+    "create-env": "pip3 install virtualenv",
+    "activate": "source venv/bin/activate",
+    "deactivate": "deactivate",
+    "install-server": "pip3 install -r requirements.txt",
+    "update-server": "pip3 freeze > requirements.txt",
+    "venv": "virtualenv venv"
   },
   "engines": {
     "node": ">=14.0.0",

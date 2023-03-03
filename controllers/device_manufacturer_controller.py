@@ -56,7 +56,9 @@ def logout():
 
 
 # Getting file from request
-@device_manufacturer_handler.route("/device_manufacturer/add_certificate", methods=["POST", "GET"])
+@device_manufacturer_handler.route(
+    "/device_manufacturer/add_certificate", methods=["POST", "GET"]
+)
 def add_certificate():
     if not "logged_in_owner_id" in session:
         return jsonify({"error": "Not logged in"}), 401
@@ -84,7 +86,9 @@ def add_certificate():
     return jsonify({"message": "Certificate not added"}), 400
 
 
-@device_manufacturer_handler.route("/device_manufacturer/get_certificates", methods=["GET", "POST"])
+@device_manufacturer_handler.route(
+    "/device_manufacturer/get_certificates", methods=["GET", "POST"]
+)
 def get_certificate():
     if not "logged_in_owner_id" in session:
         return jsonify({"error": "Not logged in"}), 401
