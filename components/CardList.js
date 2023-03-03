@@ -32,7 +32,7 @@ export default function CardList({ certificates, page }) {
       //   hashed_key: certificates[index].hashed_key,
       //   account: field,
       // });
-      console.log(res);
+      // console.log(res);
     } catch (e) {
       console.log(e);
     }
