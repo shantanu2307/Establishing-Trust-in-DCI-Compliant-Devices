@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import Card from './Card';
 import useSWR, { mutate } from 'swr';
-import { trigger } from 'swr';
-
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -13,28 +11,27 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
   },
   grid: {
-    marginTop: '20px',
+    marginTop: '0px',
   },
 }));
 
-
-export default function CardList({ certificates }) {
+export default function CardList({ certificates, page }) {
   const styles = useStyles();
   const { data } = useSWR('/device_manufacturer/get_certificates');
-
+  const index = page * 6 - 6;
   async function handleSubmit(field) {
     try {
       console.log(field);
       mutate('/device_manufacturer/get_certificates', {
         certificates: data?.certificates.filter(
-          (certificate) => certificate.hashed_key !== certificates[index].hashed_key
+          (certificate) =>
+            certificate.hashed_key !== certificates[index].hashed_key
         ),
       });
       // const res = await instance.post('/device_manufacturer/transfer', {
       //   hashed_key: certificates[index].hashed_key,
       //   account: field,
       // });
-      trigger('/device_manufacturer/get_certificates');
       console.log(res);
     } catch (e) {
       console.log(e);
@@ -43,11 +40,11 @@ export default function CardList({ certificates }) {
   return (
     <>
       <Grid container spacing={3} className={styles.grid}>
-        {certificates.map((certificate, index) => (
+        {certificates.slice(index, index + 6).map((certificate, index) => (
           <Grid item key={index}>
             <Paper className={styles.paper}>
               <Card
-                heading={'Certificate ' + (index + 1)}
+                heading={'Certificate ' + (page * 6 - 5 + index)}
                 hash={certificate.hashed_key}
                 created_by={certificate.created_by}
                 created_at={certificate.created}

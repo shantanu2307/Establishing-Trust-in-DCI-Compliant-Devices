@@ -187,6 +187,7 @@ export default function Dashboard({ title, handleLogOut, children }) {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           {children && children[1]}
+          {children && children[2]}
         </Container>
         <Copyright />
       </main>
