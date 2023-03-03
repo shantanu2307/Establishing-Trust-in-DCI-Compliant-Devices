@@ -85,6 +85,7 @@ export default function Card(props) {
   function handleSubmit(e) {
     e.preventDefault();
     if (field && textRef.current.value !== '') {
+      console.log(field);
       props.handleSubmit(field);
     }
   }

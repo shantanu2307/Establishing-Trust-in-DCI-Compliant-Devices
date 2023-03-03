@@ -6,33 +6,21 @@ import DashBoard from '../../components/DashBoard';
 import DeviceManufacturerList from '../../components/DeviceManufacturerList';
 import CardList from '../../components/CardList';
 import instance from '../../axios.config';
-import { CircularProgress } from '@material-ui/core';
+import useSWR from 'swr';
 
-export default function Dashboard() {
+export default function Dashboard({ certificatesFromServer }) {
   const router = useRouter();
   const { user, setUser } = useContext(AppContext);
-  const [loading, setLoading] = useState(true);
-  const [certificates, setCertificates] = useState([]);
-  async function getCertificates() {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-    const res = await instance.get('/device_manufacturer/get_certificates', {
-      headers: headers,
-      withCredentials: true,
-    });
-    if (res.status === 200) {
-      setCertificates(res.data.certificates);
-    }
-  }
+
+  const { data } = useSWR('/device_manufacturer/get_certificates', {
+    initialData: { certificates: certificatesFromServer },
+  });
 
   useEffect(() => {
     if (!user.loggedIn || user.role !== 'device_manufacturer') {
       router.push('/device_manufacturer/login');
       return;
     }
-    getCertificates();
-    setLoading(false);
   }, []);
 
   async function handleLogOut() {
@@ -51,18 +39,23 @@ export default function Dashboard() {
   return (
     <>
       <div>
-        <DashBoard
-          title={'Dashboard'}
-          certificates={certificates}
-          handleLogOut={handleLogOut}
-        >
+        <DashBoard title={'Dashboard'} handleLogOut={handleLogOut}>
           <DeviceManufacturerList />
           <div>
-            {!loading && (<CardList certificates={certificates} />)}
-            {loading && (<CircularProgress />)}
+            <CardList certificates={data?.certificates || []} />
           </div>
         </DashBoard>
       </div>
     </>
   );
 }
+
+Dashboard.getInitialProps = async (ctx) => {
+  try {
+    const res = await instance.get('/device_manufacturer/get_certificates');
+    return { certificatesFromServer: res?.data?.certificates || [] };
+  } catch (error) {
+    console.log(error);
+    return { certificatesFromServer: [] };
+  }
+};
