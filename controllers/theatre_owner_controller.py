@@ -1,6 +1,6 @@
 from flask import request, jsonify, Blueprint, session
 from block import validateOwner, updateOwner
-from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.backends import default_backend
 from models.main import *
@@ -21,6 +21,7 @@ session = {}
 def get_ending_time(starting_time, running_length):
     starting_time = starting_time % 100 + (starting_time // 100) * 60
     ending_time = starting_time + running_length
+    ending_time %= 2400
     ending_time = ending_time % 60 + (ending_time // 60) * 100
     return ending_time
 

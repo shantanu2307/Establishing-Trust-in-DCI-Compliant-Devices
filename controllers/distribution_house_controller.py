@@ -53,23 +53,65 @@ def logout():
     return jsonify({"message": "Not logged in"}), 401
 
 
+@distribution_house_handler.route("/distribution_house/delete_dkdm", methods=["POST"])
+def delete_dkdm():
+    if "logged_in_owner_id" in session:
+        data = request.get_json()
+        movie_name = data.get("movie_name")
+        print(movie_name)
+        dkdm = dkdm_entity.find({"movie_name": movie_name})
+        if dkdm:
+            dkdm_entity.delete(dkdm[0].get("_id"))
+            print("Deleted DKDM")
+            return jsonify({"message": "Deleted DKDM"}), 200
+        return jsonify({"message": "No DKDM found"}), 400
+    return jsonify({"message": "Not logged in"}), 401
+
+
+@distribution_house_handler.route("/distribution_house/get_dkdm", methods=["GET"])
+def get_dkdm():
+    if "logged_in_owner_id" in session:
+        dkdms = dkdm_entity.find({"distribution_house_id": session.get("logged_in_owner_id")})
+        if dkdms:
+            res = []
+            for dkdm in dkdms:
+                res.append(dkdm.get("movie_name"))
+            return jsonify({"dkdms": res}), 200
+        return jsonify({"message": "No DKDM found"}), 400
+    return jsonify({"message": "Not logged in"}), 401
+
+
 @distribution_house_handler.route("/distribution_house/add_dkdm", methods=["POST"])
 def add_dkdm():
     if "logged_in_owner_id" in session:
         decrypted_file = request.files.get("file")
+        print(decrypted_file)
         filename = decrypted_file.filename
-        decrypted_file.save(filename)
+        print(filename)
         movie_name = request.form.get("movie_name")
+        print(movie_name)
+        values = dkdm_entity.find({"movie_name": movie_name})
+        print(values)
+        if values:
+            return jsonify({"message": "Movie already exists"}), 400
+        decrypted_file.save(filename)
+        print("File saved")
         key = Fernet.generate_key()
+        print(key)
         fernet_instance = Fernet(key)
         with open(filename, "rb") as f:
             video_data = f.read()
+        print("Video Data read")
         encrypted_data = fernet_instance.encrypt(video_data)
+        print("Video Data encrypted")
         encrypted_key = key
         with open("video_encrypted.mp4", "wb") as f:
             f.write(encrypted_data)
+        print("Encrypted video saved")
         res = ipfs.add("video_encrypted.mp4")
+        print("Video added to IPFS")
         ipfs_hash = res["Hash"]
+        print(ipfs_hash)
         os.remove("video_encrypted.mp4")
         os.remove(filename)
         data = {
@@ -79,5 +121,6 @@ def add_dkdm():
             "decryption_key": encrypted_key,
         }
         dkdm_entity.create(data)
+        print("DKDM created")
         return jsonify({"message": "DKDM generated successfully"}), 200
     return jsonify({"message": "Not logged in"}), 401

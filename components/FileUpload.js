@@ -5,7 +5,7 @@ import styles from '../styles/form.module.css';
 import Title from './Title';
 import { Alert } from '@mui/material';
 
-export default function FileUpload({ handleSubmit, success }) {
+export default function FileUpload({ handleSubmit, success, children }) {
   const [file, setFile] = useState();
 
   const uploadFile = (e) => {
@@ -20,13 +20,14 @@ export default function FileUpload({ handleSubmit, success }) {
   return (
     <form className={styles.form}>
       {success === 1 && (
-        <Alert severity="success">Certificate added successfully</Alert>
+        <Alert severity="success">File added successfully</Alert>
       )}
       {success === 0 && (
-        <Alert severity="error">Error adding certificate</Alert>
+        <Alert severity="error">Error adding file</Alert>
       )}
-      <Title>UPLOAD CERTIFICATE</Title>
+      <Title>UPLOAD FILE</Title>
       <CustomInput type="file" handleChange={uploadFile} />
+      {children && (children)}
       <Button
         type="info"
         color="secondary"
