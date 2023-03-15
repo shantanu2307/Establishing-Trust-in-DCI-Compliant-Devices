@@ -11,15 +11,15 @@ class TheatreOwner(object):
             "name": "string",
             "email": "string",
             "password": "string",
-            "theatre_id": "string",
+            "account": "string",
             "created": "datetime",
             "updated": "datetime",
         }
 
-        self.create_required_fields = ["name", "email", "password", "theatre_id"]
+        self.create_required_fields = ["name", "email", "password", "account"]
         self.create_optional_fields = []
 
-        self.update_required_fields = ["name", "email", "password", "theatre_id"]
+        self.update_required_fields = ["name", "email", "password", "account"]
         self.update_optional_fields = []
 
     def create(self, theatre_owner):

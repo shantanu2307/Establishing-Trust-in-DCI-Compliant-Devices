@@ -10,6 +10,7 @@ class Certificate(object):
         self.fields = {
             "created_by": "string",
             "hashed_key": "string",
+            "public_key": "string",
             "created": "datetime",
             "updated": "datetime",
         }
@@ -17,12 +18,14 @@ class Certificate(object):
         self.create_required_fields = [
             "created_by",
             "hashed_key",
+            "public_key",
         ]
 
         self.create_optional_fields = []
 
         self.update_required_fields = [
             "created_by" "hashed_key",
+            "public_key",
         ]
 
         self.update_optional_fields = []

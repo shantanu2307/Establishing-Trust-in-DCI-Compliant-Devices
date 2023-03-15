@@ -2,36 +2,33 @@ from factory.validation import Validator
 from factory.database import Database
 
 
-class Movie(object):
+class DKDM(object):
     def __init__(self):
         self.validator = Validator()
         self.db = Database()
-        self.collection_name = "movies"
+        self.collection_name = "dkdms"
+        # movie_name field is unique
         self.fields = {
-            "name": "string",
-            "duration": "int",
-            "genre": "string",
-            "language": "string",
-            "rating": "string",
+            "file_hash": "string",
+            "decryption_key": "string",
+            "distribution_house_id": "string",
+            "movie_name": "string",
             "created": "datetime",
             "updated": "datetime",
         }
-
         self.create_required_fields = [
-            "name",
-            "duration",
-            "genre",
-            "language",
-            "rating",
+            "file_hash",
+            "decryption_key",
+            "distribution_house_id",
+            "movie_name",
         ]
         self.create_optional_fields = []
 
         self.update_required_fields = [
-            "name",
-            "duration",
-            "genre",
-            "language",
-            "rating",
+            "file_hash",
+            "decryption_key",
+            "distribution_house_id",
+            "movie_name",
         ]
         self.update_optional_fields = []
 

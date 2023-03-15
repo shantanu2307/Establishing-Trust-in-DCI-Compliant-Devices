@@ -1,5 +1,8 @@
 from flask import request, jsonify, Blueprint, session
-from block import getHash, setHash, validateOwner
+from block import getHash, setHash, validateOwner, updateOwner
+from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives import serialization, hashes
+from cryptography.hazmat.backends import default_backend
 from models.main import *
 import bson
 import bcrypt
@@ -56,9 +59,7 @@ def logout():
 
 
 # Getting file from request
-@device_manufacturer_handler.route(
-    "/device_manufacturer/add_certificate", methods=["POST", "GET"]
-)
+@device_manufacturer_handler.route("/device_manufacturer/add_certificate", methods=["POST", "GET"])
 def add_certificate():
     if not "logged_in_owner_id" in session:
         return jsonify({"error": "Not logged in"}), 401
@@ -76,8 +77,23 @@ def add_certificate():
         hash = res["Hash"]
         setHash(account, hash)
         os.remove(filename)
+        private_key = rsa.generate_private_key(
+            public_exponent=65537,
+            key_size=2048,
+        )
+        # Put in device for decryption
+        pem_private_key = private_key.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.PKCS8,
+            encryption_algorithm=serialization.NoEncryption(),
+        )
+        public_key = private_key.public_key()
+        pem_public_key = public_key.public_bytes(
+            encoding=serialization.Encoding.PEM, format=serialization.PublicFormat.SubjectPublicKeyInfo
+        )
         certificate_entity.create(
             {
+                "public_key": pem_public_key.decode("utf-8"),
                 "created_by": name,
                 "hashed_key": hash,
             }
@@ -86,9 +102,7 @@ def add_certificate():
     return jsonify({"message": "Certificate not added"}), 400
 
 
-@device_manufacturer_handler.route(
-    "/device_manufacturer/get_certificates", methods=["GET", "POST"]
-)
+@device_manufacturer_handler.route("/device_manufacturer/get_certificates", methods=["GET", "POST"])
 def get_certificate():
     if not "logged_in_owner_id" in session:
         return jsonify({"error": "Not logged in"}), 401
@@ -103,3 +117,16 @@ def get_certificate():
         if certificate and len(certificate) > 0:
             certificates.append(certificate[0])
     return jsonify({"certificates": certificates}), 200
+
+
+@device_manufacturer_handler.route("/device_manufacturer/transfer_ownership", methods=["POST"])
+def transfer_ownership():
+    if "logged_in_owner_id" not in session:
+        return jsonify({"message": "Not logged in"}), 401
+    data = request.get_json()
+    if "new_owner" not in data or "hash" not in data:
+        return jsonify({"message": "Missing required field"}), 400
+    if not validateOwner(session["logged_in_owner_id"], data["hash"]):
+        return jsonify({"message": "Unauthorized"}), 401
+    updateOwner(data["new_owner"], data["hash"])
+    return jsonify({"message": "Success"}), 200
