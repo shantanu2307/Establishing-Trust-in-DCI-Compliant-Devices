@@ -19,6 +19,8 @@ session = {}
 
 
 def get_ending_time(starting_time, running_length):
+    starting_time = int(starting_time)
+    running_length = int(running_length)
     starting_time = starting_time % 100 + (starting_time // 100) * 60
     ending_time = starting_time + running_length
     ending_time %= 2400
@@ -32,6 +34,8 @@ def generateKDM(ipfs_hash, movie_name, starting_time):
     if dkdm and dkdm[0]:
         dkdm = dkdm[0]
         decryption_key = dkdm.get("decryption_key")
+        # Convert decryption key to string
+        decryption_key = decryption_key.decode("utf-8")
         certificate_document = certificate_entity.find({"hashed_key": ipfs_hash})
         if certificate_document and certificate_document[0]:
             document = certificate_document[0]
@@ -39,7 +43,8 @@ def generateKDM(ipfs_hash, movie_name, starting_time):
             public_key = serialization.load_pem_public_key(
                 public_key_certificate.encode("utf-8"), backend=default_backend()
             )
-            decrypted_kdm = decryption_key + "#" + starting_time + "#" + get_ending_time(starting_time, 60)
+            decrypted_kdm = decryption_key + "#" + str(starting_time) + "#" + str(get_ending_time(starting_time, 60))
+            decrypted_kdm = decrypted_kdm.encode("utf-8")
             encrypted_kdm = public_key.encrypt(
                 decrypted_kdm,
                 padding.OAEP(
@@ -100,8 +105,6 @@ def transfer_ownership():
     data = request.get_json()
     if "new_owner" not in data or "hash" not in data:
         return jsonify({"message": "Missing required field"}), 400
-    if not validateOwner(session["logged_in_owner_id"], data["hash"]):
-        return jsonify({"message": "Unauthorized"}), 401
     updateOwner(data["new_owner"], data["hash"])
     return jsonify({"message": "Success"}), 200
 
@@ -113,11 +116,15 @@ def generate_kdm():
     data = request.get_json()
     if "hash" not in data:
         return jsonify({"message": "Missing required field"}), 400
-    if not validateOwner(session["logged_in_owner_id"], data["hash"]):
+    t_owner = theatre_owner.find_by_id(session["logged_in_owner_id"])
+    account = t_owner.get("account")
+    if not validateOwner(account, data["hash"]):
         return jsonify({"message": "Unauthorized"}), 401
     kdm = generateKDM(data["hash"], data["movie_name"], data["starting_time"])
     if kdm:
+        kdm = kdm.hex()
         return jsonify({"kdm": kdm}), 200
+
     return jsonify({"message": "Error generating KDM"}), 400
 
 

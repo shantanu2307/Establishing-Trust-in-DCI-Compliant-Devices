@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function CardList({ certificates, page }) {
+export default function CardList({ role, certificates, page }) {
   const styles = useStyles();
   const index = page * 6 - 6;
   return (
@@ -24,6 +24,7 @@ export default function CardList({ certificates, page }) {
           <Grid item key={index}>
             <Paper className={styles.paper}>
               <Card
+                role={role}
                 heading={certificate.device_name || 'Certificate ' + (page * 6 - 5 + index)}
                 hash={certificate.hashed_key}
                 created_by={certificate.created_by}

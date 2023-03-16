@@ -88,11 +88,20 @@ export default function Card(props) {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await instance.post('/device_manufacturer/transfer_ownership', {
-        hash: props.hash,
-        new_owner: field,
-      });
-      mutate('/device_manufacturer/get_certificates', null, false);
+      if (props.role === 'device_manufacturer') {
+        await instance.post('/device_manufacturer/transfer_ownership', {
+          hash: props.hash,
+          new_owner: field,
+        });
+        mutate('/device_manufacturer/get_certificates', null, false);
+      }
+      else if (props.role === 'theatre_owner') {
+        await instance.post('/theatre_owner/transfer_ownership', {
+          hash: props.hash,
+          new_owner: field,
+        });
+        mutate('/theatre_owner/get_certificates', null, false);
+      }
     } catch (e) {
       console.log(e);
     }

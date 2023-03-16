@@ -67,7 +67,7 @@ export default function GenerateKDM({ certificatesFromServer }) {
                 ...fieldValues,
                 hash: selectRef.current.value,
             });
-            const texts = [res.data];
+            const texts = [res.data.kdm];
             download(texts);
             setSuccess('KDM Generated Successfully');
         } catch (e) {

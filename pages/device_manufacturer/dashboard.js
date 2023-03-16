@@ -71,7 +71,7 @@ export default function Dashboard({ certificatesFromServer }) {
             alignItems={'center'}
             mt={'20px'}
           >
-            <CardList page={page} certificates={data?.certificates || []} />
+            <CardList role={"device_manufacturer"} page={page} certificates={data?.certificates || []} />
           </Box>
           <Box
             width={'100%'}
