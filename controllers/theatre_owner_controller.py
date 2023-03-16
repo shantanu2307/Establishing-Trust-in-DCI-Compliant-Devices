@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint, session
-from block import validateOwner, updateOwner
+from block import validateOwner, updateOwner, getHash
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.backends import default_backend
@@ -119,3 +119,20 @@ def generate_kdm():
     if kdm:
         return jsonify({"kdm": kdm}), 200
     return jsonify({"message": "Error generating KDM"}), 400
+
+
+@theatre_owner_handler.route("/theatre_owner/get_certificates", methods=["GET", "POST"])
+def get_certificate():
+    if not "logged_in_owner_id" in session:
+        return jsonify({"error": "Not logged in"}), 401
+    print(session["logged_in_owner_id"], "ID")
+    t_owner = theatre_owner.find_by_id(session["logged_in_owner_id"])
+    account = t_owner.get("account")
+    account = str(account)
+    hashes = getHash(account)
+    certificates = []
+    for hash in hashes:
+        certificate = certificate_entity.find({"hashed_key": hash})
+        if certificate and len(certificate) > 0:
+            certificates.append(certificate[0])
+    return jsonify({"certificates": certificates}), 200

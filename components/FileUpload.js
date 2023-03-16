@@ -22,12 +22,10 @@ export default function FileUpload({ handleSubmit, success, children }) {
       {success === 1 && (
         <Alert severity="success">File added successfully</Alert>
       )}
-      {success === 0 && (
-        <Alert severity="error">Error adding file</Alert>
-      )}
+      {success === 0 && <Alert severity="error">Error adding file</Alert>}
       <Title>UPLOAD FILE</Title>
       <CustomInput type="file" handleChange={uploadFile} />
-      {children && (children)}
+      {children && children}
       <Button
         type="info"
         color="secondary"

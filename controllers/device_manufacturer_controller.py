@@ -58,14 +58,13 @@ def logout():
 
 
 # Getting file from request
-@device_manufacturer_handler.route(
-    "/device_manufacturer/add_certificate", methods=["POST", "GET"]
-)
+@device_manufacturer_handler.route("/device_manufacturer/add_certificate", methods=["POST", "GET"])
 def add_certificate():
     if not "logged_in_owner_id" in session:
         return jsonify({"error": "Not logged in"}), 401
     filename = ""
     certificate = request.files.get("file")
+    device_name = request.form.get("device_name")
     d_man = device_manufacturer.find_by_id(session["logged_in_owner_id"])
     name = d_man.get("name")
     account = d_man.get("account")
@@ -95,6 +94,7 @@ def add_certificate():
         )
         certificate_entity.create(
             {
+                "device_name": device_name,
                 "public_key": pem_public_key.decode("utf-8"),
                 "created_by": name,
                 "hashed_key": hash,
@@ -104,9 +104,7 @@ def add_certificate():
     return jsonify({"message": "Certificate not added"}), 400
 
 
-@device_manufacturer_handler.route(
-    "/device_manufacturer/get_certificates", methods=["GET", "POST"]
-)
+@device_manufacturer_handler.route("/device_manufacturer/get_certificates", methods=["GET", "POST"])
 def get_certificate():
     if not "logged_in_owner_id" in session:
         return jsonify({"error": "Not logged in"}), 401
@@ -123,9 +121,7 @@ def get_certificate():
     return jsonify({"certificates": certificates}), 200
 
 
-@device_manufacturer_handler.route(
-    "/device_manufacturer/transfer_ownership", methods=["POST"]
-)
+@device_manufacturer_handler.route("/device_manufacturer/transfer_ownership", methods=["POST"])
 def transfer_ownership():
     if "logged_in_owner_id" not in session:
         return jsonify({"message": "Not logged in"}), 401

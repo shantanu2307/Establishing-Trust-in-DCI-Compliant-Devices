@@ -5,13 +5,14 @@ import { AppContext } from '../../contexts/AppContext';
 import Dashboard from '../../components/DashBoard';
 import DeviceManufacturerList from '../../components/DeviceManufacturerList';
 import FileUpload from '../../components/FileUpload';
+import CustomInput from '../../components/CustomInput';
 import instance from '../../axios.config';
 
 export default function AddCertificate() {
   const router = useRouter();
   const { user, setUser } = useContext(AppContext);
   const [success, setSuccess] = useState(2);
-
+  const [device, setDevice] = useState(null);
   useEffect(() => {
     if (!user.loggedIn || user.role !== 'device_manufacturer') {
       router.push('/device_manufacturer/login');
@@ -32,10 +33,15 @@ export default function AddCertificate() {
     }
   }
 
+  function handleChange(e) {
+    setDevice(e.target.value);
+  }
+
   async function uploadFile(file) {
     try {
       const formData = new FormData();
       formData.append('file', file);
+      formData.append('device_name', device);
       const headers = {
         'Content-Type': 'multipart/form-data',
       };
@@ -61,7 +67,9 @@ export default function AddCertificate() {
       <div>
         <Dashboard title={'Add Certificate'} handleLogOut={handleLogOut}>
           <DeviceManufacturerList />
-          <FileUpload handleSubmit={uploadFile} success={success} />
+          <FileUpload handleSubmit={uploadFile} success={success}>
+            <CustomInput type="text" handleChange={handleChange} />
+          </FileUpload>
         </Dashboard>
       </div>
     </>

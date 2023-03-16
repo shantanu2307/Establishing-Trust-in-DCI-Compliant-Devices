@@ -7,30 +7,30 @@ import AddIcon from '@material-ui/icons/Add';
 import { useRouter } from 'next/router';
 
 export default function DistributionHouseList() {
-    const router = useRouter();
+  const router = useRouter();
 
-    function handleClickToDashboard() {
-        router.push('/distribution_house/dashboard');
-    }
+  function handleClickToDashboard() {
+    router.push('/distribution_house/dashboard');
+  }
 
-    function handleClickToAddDKDM() {
-        router.push('/distribution_house/add_dkdm');
-    }
+  function handleClickToAddDKDM() {
+    router.push('/distribution_house/add_dkdm');
+  }
 
-    return (
-        <div>
-            <ListItem button onClick={handleClickToDashboard}>
-                <ListItemIcon>
-                    <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" />
-            </ListItem>
-            <ListItem button onClick={handleClickToAddDKDM}>
-                <ListItemIcon>
-                    <AddIcon />
-                </ListItemIcon>
-                <ListItemText primary="Add DKDM" />
-            </ListItem>
-        </div>
-    );
+  return (
+    <div>
+      <ListItem button onClick={handleClickToDashboard}>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItem>
+      <ListItem button onClick={handleClickToAddDKDM}>
+        <ListItemIcon>
+          <AddIcon />
+        </ListItemIcon>
+        <ListItemText primary="Add DKDM" />
+      </ListItem>
+    </div>
+  );
 }
