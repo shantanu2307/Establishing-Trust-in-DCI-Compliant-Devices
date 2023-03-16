@@ -4,7 +4,7 @@ import CustomInput from './CustomInput';
 import Button from './Button';
 import { Alert } from '@mui/material';
 
-export default function SignupForm({ error, fields, handleSubmit }) {
+export default function LoginForm({ children, error, success, fields, handleSubmit }) {
   // Set states for each field.name in fields and return it to handleSubmit
 
   const [fieldValues, setFieldValues] = useState({});
@@ -24,6 +24,8 @@ export default function SignupForm({ error, fields, handleSubmit }) {
   return (
     <form className={styles.form}>
       {error && <Alert severity="error">{error}</Alert>}
+      {success && <Alert severity="success">{success}</Alert>}
+      {children && children}
       {fields.map((field, index) => (
         <CustomInput
           key={index}
@@ -38,7 +40,7 @@ export default function SignupForm({ error, fields, handleSubmit }) {
       ))}
       <Button
         type="button"
-        color="danger"
+        color="primary"
         className={styles.form_custom_btn}
         onClick={handleSubmitButton}
       >

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SignupForm from '../../components/SignupForm';
+import Form from '../../components/Form';
 import { useRouter } from 'next/router';
 import instance from '../../axios.config';
 
@@ -41,7 +41,7 @@ export default function Signup() {
 
     return (
         <>
-            <SignupForm error={error} fields={fields} handleSubmit={handleSubmit} />
+            <Form error={error} fields={fields} handleSubmit={handleSubmit} />
         </>
     );
 }

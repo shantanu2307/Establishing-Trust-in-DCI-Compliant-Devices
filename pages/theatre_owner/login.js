@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import LoginForm from '../../components/LoginForm';
+import Form from '../../components/Form';
 import { AppContext } from '../../contexts/AppContext';
 import { useContext } from 'react';
 import instance from '../../axios.config';
@@ -38,7 +38,7 @@ export default function Login() {
 
     return (
         <>
-            <LoginForm error={error} fields={fields} handleSubmit={handleSubmit} />
+            <Form error={error} fields={fields} handleSubmit={handleSubmit} />
         </>
     );
 }

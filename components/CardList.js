@@ -24,7 +24,7 @@ export default function CardList({ certificates, page }) {
           <Grid item key={index}>
             <Paper className={styles.paper}>
               <Card
-                heading={'Certificate ' + (page * 6 - 5 + index)}
+                heading={certificate.device_name || 'Certificate ' + (page * 6 - 5 + index)}
                 hash={certificate.hashed_key}
                 created_by={certificate.created_by}
                 created_at={certificate.created}
