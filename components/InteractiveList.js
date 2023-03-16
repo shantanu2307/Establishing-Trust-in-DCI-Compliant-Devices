@@ -8,19 +8,18 @@ import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import FolderIcon from '@mui/icons-material/Folder';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useRouter } from 'next/router';
 import { Typography } from '@material-ui/core';
 import instance from '../axios.config';
-
+import { useSWRConfig } from 'swr';
 
 
 export default function InteractiveList({ page, dkdms }) {
-    const router = useRouter();
+    const { mutate } = useSWRConfig()
     const index = page * 10 - 10;
     async function handleDelete(dkdm) {
         try {
             await instance.post('/distribution_house/delete_dkdm', { "movie_name": dkdm });
-            router.push('/distribution_house/add_dkdm')
+            mutate('/distribution_house/get_dkdm', { dkdms: dkdms.filter((item) => item !== dkdm) }, false);
         } catch (e) {
             console.log(e);
         }
@@ -32,7 +31,7 @@ export default function InteractiveList({ page, dkdms }) {
             <Box container spacing={2}>
                 <Grid item xs={12} md={6}>
                     <List>
-                        {dkdms.slice(index, index + 10).map((dkdm) => {
+                        {index >= 0 && dkdms.slice(index, index + 10).map((dkdm) => {
                             return (
                                 <ListItem
                                     secondaryAction={

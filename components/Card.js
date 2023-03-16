@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import React, { useRef, useState } from 'react';
+import { useSWRConfig } from 'swr';
+import instance from '../axios.config';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -78,15 +80,21 @@ export default function Card(props) {
   const classes = useStyles();
   const textRef = useRef(null);
   const [field, setField] = useState(null);
+  const { mutate } = useSWRConfig();
   function handleChange() {
     setField(textRef.current.value);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (field && textRef.current.value !== '') {
-      console.log(field);
-      props.handleSubmit(field);
+    try {
+      await instance.post('/device_manufacturer/transfer_ownership', {
+        hash: props.hash,
+        new_owner: field,
+      });
+      mutate('/device_manufacturer/get_certificates', null, false);
+    } catch (e) {
+      console.log(e);
     }
   }
 
@@ -110,7 +118,7 @@ export default function Card(props) {
           ref={textRef}
           onChange={handleChange}
         ></input>
-        <button className={classes.button} onSubmit={handleSubmit}>
+        <button className={classes.button} onClick={handleSubmit}>
           Tranfer
         </button>
       </div>
