@@ -121,6 +121,8 @@ def generate_kdm():
     if not validateOwner(account, data["hash"]):
         return jsonify({"message": "Unauthorized"}), 401
     kdm = generateKDM(data["hash"], data["movie_name"], data["starting_time"])
+    with open("kdm.txt", "wb") as f:
+        f.write(kdm)
     if kdm:
         kdm = kdm.hex()
         return jsonify({"kdm": kdm}), 200

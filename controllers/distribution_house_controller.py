@@ -112,7 +112,6 @@ def add_dkdm():
         print("Video added to IPFS")
         ipfs_hash = res["Hash"]
         print(ipfs_hash)
-        os.remove("video_encrypted.mp4")
         os.remove(filename)
         data = {
             "movie_name": movie_name,

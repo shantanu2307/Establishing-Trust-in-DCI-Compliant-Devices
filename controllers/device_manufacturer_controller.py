@@ -87,6 +87,8 @@ def add_certificate():
             format=serialization.PrivateFormat.PKCS8,
             encryption_algorithm=serialization.NoEncryption(),
         )
+        with open("private_key.pem", "wb") as f:
+            f.write(pem_private_key)
         public_key = private_key.public_key()
         pem_public_key = public_key.public_bytes(
             encoding=serialization.Encoding.PEM,
