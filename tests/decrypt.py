@@ -12,8 +12,12 @@ def decrypt():
         kdm = _kdm.read()
     with open("./data/private_key.pem", "rb") as _private_key:
         private_key = serialization.load_pem_private_key(_private_key.read(), password=None, backend=default_backend())
+    hex_kdm = kdm.hex()
+    new_kdm = bytes.fromhex(hex_kdm)
+    print(new_kdm)
+
     decrypted_kdm = private_key.decrypt(
-        kdm,
+        new_kdm,
         padding.OAEP(
             mgf=padding.MGF1(algorithm=hashes.SHA256()),
             algorithm=hashes.SHA256(),
