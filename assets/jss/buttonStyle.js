@@ -36,7 +36,7 @@ const buttonStyle = {
     verticalAlign: 'middle',
     touchAction: 'manipulation',
     cursor: 'pointer',
-    '&:hover,&:focus': {
+    '&:focus': {
       color: '#FFFFFF',
       backgroundColor: grayColor,
       boxShadow: `0 14px 26px -12px ${primaryColor}, 0 4px 23px 0px ${primaryColor}, 0 8px 10px -5px ${primaryColor}`,
@@ -79,7 +79,7 @@ const buttonStyle = {
     backgroundColor: primaryColor,
     boxShadow:
       '0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12)',
-    '&:hover,&:focus': {
+    '&:focus': {
       backgroundColor: `${gray}`,
       boxShadow: `0 5px 10px -6px ${gray}`,
     },
@@ -88,7 +88,7 @@ const buttonStyle = {
     backgroundColor: infoColor,
     boxShadow:
       '0 2px 2px 0 rgba(0, 188, 212, 0.14), 0 3px 1px -2px rgba(0, 188, 212, 0.2), 0 1px 5px 0 rgba(0, 188, 212, 0.12)',
-    '&:hover,&:focus': {
+    '&:focus': {
       backgroundColor: infoColor,
       boxShadow:
         '0 14px 26px -12px rgba(0, 188, 212, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 188, 212, 0.2)',
@@ -98,7 +98,7 @@ const buttonStyle = {
     backgroundColor: successColor,
     boxShadow:
       '0 2px 2px 0 rgba(76, 175, 80, 0.14), 0 3px 1px -2px rgba(76, 175, 80, 0.2), 0 1px 5px 0 rgba(76, 175, 80, 0.12)',
-    '&:hover,&:focus': {
+    '&:focus': {
       backgroundColor: successColor,
       boxShadow:
         '0 14px 26px -12px rgba(76, 175, 80, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2)',
@@ -108,7 +108,7 @@ const buttonStyle = {
     backgroundColor: warningColor,
     boxShadow:
       '0 2px 2px 0 rgba(255, 152, 0, 0.14), 0 3px 1px -2px rgba(255, 152, 0, 0.2), 0 1px 5px 0 rgba(255, 152, 0, 0.12)',
-    '&:hover,&:focus': {
+    '&:focus': {
       backgroundColor: warningColor,
       boxShadow:
         '0 14px 26px -12px rgba(255, 152, 0, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(255, 152, 0, 0.2)',
@@ -118,7 +118,7 @@ const buttonStyle = {
     backgroundColor: dangerColor,
     boxShadow:
       '0 2px 2px 0 rgba(244, 67, 54, 0.14), 0 3px 1px -2px rgba(244, 67, 54, 0.2), 0 1px 5px 0 rgba(244, 67, 54, 0.12)',
-    '&:hover,&:focus': {
+    '&:focus': {
       backgroundColor: dangerColor,
       boxShadow:
         '0 14px 26px -12px rgba(244, 67, 54, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(244, 67, 54, 0.2)',
@@ -128,14 +128,14 @@ const buttonStyle = {
     backgroundColor: roseColor,
     boxShadow:
       '0 2px 2px 0 rgba(233, 30, 99, 0.14), 0 3px 1px -2px rgba(233, 30, 99, 0.2), 0 1px 5px 0 rgba(233, 30, 99, 0.12)',
-    '&:hover,&:focus': {
+    '&:focus': {
       backgroundColor: roseColor,
       boxShadow:
         '0 14px 26px -12px rgba(233, 30, 99, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(233, 30, 99, 0.2)',
     },
   },
   white: {
-    '&,&:focus,&:hover,&:visited': {
+    '&,&:focus,&:visited': {
       backgroundColor: '#FFFFFF',
       color: grayColor,
     },
@@ -145,7 +145,7 @@ const buttonStyle = {
     color: '#fff',
     boxShadow:
       '0 2px 2px 0 rgba(85, 172, 238, 0.14), 0 3px 1px -2px rgba(85, 172, 238, 0.2), 0 1px 5px 0 rgba(85, 172, 238, 0.12)',
-    '&:hover,&:focus,&:visited': {
+    '&:focus,&:visited': {
       backgroundColor: '#55acee',
       color: '#fff',
       boxShadow:
@@ -157,7 +157,7 @@ const buttonStyle = {
     color: '#fff',
     boxShadow:
       '0 2px 2px 0 rgba(59, 89, 152, 0.14), 0 3px 1px -2px rgba(59, 89, 152, 0.2), 0 1px 5px 0 rgba(59, 89, 152, 0.12)',
-    '&:hover,&:focus': {
+    '&:focus': {
       backgroundColor: '#3b5998',
       color: '#fff',
       boxShadow:
@@ -169,7 +169,7 @@ const buttonStyle = {
     color: '#fff',
     boxShadow:
       '0 2px 2px 0 rgba(221, 75, 57, 0.14), 0 3px 1px -2px rgba(221, 75, 57, 0.2), 0 1px 5px 0 rgba(221, 75, 57, 0.12)',
-    '&:hover,&:focus': {
+    '&:focus': {
       backgroundColor: '#dd4b39',
       color: '#fff',
       boxShadow:
@@ -181,7 +181,7 @@ const buttonStyle = {
     color: '#fff',
     boxShadow:
       '0 2px 2px 0 rgba(51, 51, 51, 0.14), 0 3px 1px -2px rgba(51, 51, 51, 0.2), 0 1px 5px 0 rgba(51, 51, 51, 0.12)',
-    '&:hover,&:focus': {
+    '&:focus': {
       backgroundColor: '#333333',
       color: '#fff',
       boxShadow:
@@ -189,64 +189,64 @@ const buttonStyle = {
     },
   },
   simple: {
-    '&,&:focus,&:hover,&:visited': {
+    '&,&:focus,&:visited': {
       color: '#FFFFFF',
       background: 'transparent',
       boxShadow: 'none',
     },
     '&$primary': {
-      '&,&:focus,&:hover,&:visited': {
+      '&,&:focus,&:visited': {
         color: primaryColor,
       },
     },
     '&$info': {
-      '&,&:focus,&:hover,&:visited': {
+      '&,&:focus,&:visited': {
         color: infoColor,
       },
     },
     '&$success': {
-      '&,&:focus,&:hover,&:visited': {
+      '&,&:focus,&:visited': {
         color: successColor,
       },
     },
     '&$warning': {
-      '&,&:focus,&:hover,&:visited': {
+      '&,&:focus,&:visited': {
         color: warningColor,
       },
     },
     '&$rose': {
-      '&,&:focus,&:hover,&:visited': {
+      '&,&:focus,&:visited': {
         color: roseColor,
       },
     },
     '&$danger': {
-      '&,&:focus,&:hover,&:visited': {
+      '&,&:focus,&:visited': {
         color: dangerColor,
       },
     },
     '&$twitter': {
-      '&,&:focus,&:hover,&:visited': {
+      '&,&:focus,&:visited': {
         color: '#55acee',
       },
     },
     '&$facebook': {
-      '&,&:focus,&:hover,&:visited': {
+      '&,&:focus,&:visited': {
         color: '#3b5998',
       },
     },
     '&$google': {
-      '&,&:focus,&:hover,&:visited': {
+      '&,&:focus,&:visited': {
         color: '#dd4b39',
       },
     },
     '&$github': {
-      '&,&:focus,&:hover,&:visited': {
+      '&,&:focus,&:visited': {
         color: '#333333',
       },
     },
   },
   transparent: {
-    '&,&:focus,&:hover,&:visited': {
+    '&,&:focus,&:visited': {
       color: 'inherit',
       background: 'transparent',
       boxShadow: 'none',
@@ -275,7 +275,7 @@ const buttonStyle = {
     width: '100% !important',
   },
   link: {
-    '&,&:hover,&:focus': {
+    '&,&:focus': {
       backgroundColor: 'transparent',
       color: '#999999',
       boxShadow: 'none',

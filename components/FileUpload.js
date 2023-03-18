@@ -27,8 +27,11 @@ export default function FileUpload({ handleSubmit, success, children }) {
       <CustomInput type="file" handleChange={uploadFile} />
       {children && children}
       <Button
-        type="info"
-        color="secondary"
+        type="button"
+        style={{
+          backgroundColor: 'black',
+          color: 'white',
+        }}
         className={styles.form_custom_btn}
         onClick={handleSubmitButton}
       >

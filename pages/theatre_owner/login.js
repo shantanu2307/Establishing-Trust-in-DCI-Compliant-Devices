@@ -4,6 +4,8 @@ import Form from '../../components/Form';
 import { AppContext } from '../../contexts/AppContext';
 import { useContext } from 'react';
 import instance from '../../axios.config';
+import { Box, Typography } from '@material-ui/core';
+import Link from 'next/link';
 
 export default function Login() {
     const router = useRouter();
@@ -38,7 +40,15 @@ export default function Login() {
 
     return (
         <>
+            <Typography style={{ marginTop: "20px" }} align='center' variant={'h4'}>Theatre Owner Login</Typography>
             <Form error={error} fields={fields} handleSubmit={handleSubmit} />
+            <Box style={{
+                display: 'flex',
+                justifyContent: 'center',
+                width: '100%',
+            }}>
+                <Typography><Link href={'/theatre_owner/signup'}>Need an account?</Link></Typography>
+            </Box>
         </>
     );
 }

@@ -40,12 +40,15 @@ export default function LoginForm({ children, error, success, fields, handleSubm
       ))}
       <Button
         type="button"
-        color="primary"
+        style={{
+          backgroundColor: 'black',
+          color: 'white',
+        }}
         className={styles.form_custom_btn}
         onClick={handleSubmitButton}
       >
         Submit
       </Button>
-    </form>
+    </form >
   );
 }

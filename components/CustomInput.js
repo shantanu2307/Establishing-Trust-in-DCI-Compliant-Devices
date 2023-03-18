@@ -33,12 +33,6 @@ export default function CustomInput(props) {
     [' ' + classes.labelRootError]: error,
     [' ' + classes.labelRootSuccess]: success && !error,
   });
-  const underlineClasses = classNames({
-    [classes.underlineError]: error,
-    [classes.underlineSuccess]: success && !error,
-    [classes.underline]: true,
-    [classes.whiteUnderline]: white,
-  });
   const marginTop = classNames({
     [inputRootCustomClasses]: inputRootCustomClasses !== undefined,
   });
@@ -60,6 +54,7 @@ export default function CustomInput(props) {
       {labelText !== undefined ? (
         <InputLabel
           className={classes.labelRoot + ' ' + labelClasses}
+          style={{ marginTop: '-10px' }}
           htmlFor={id}
           {...labelProps}
         >
@@ -70,8 +65,7 @@ export default function CustomInput(props) {
         classes={{
           input: inputClasses,
           root: marginTop,
-          disabled: classes.disabled,
-          underline: underlineClasses,
+          disabled: classes.disabled
         }}
         id={id}
         onChange={handleChange}
